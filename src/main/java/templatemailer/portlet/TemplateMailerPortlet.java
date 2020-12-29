@@ -7,15 +7,14 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.search.*;
 import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import templatemailer.constants.TemplateMailerPortletKeys;
 
-import javax.portlet.Portlet;
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import javax.portlet.*;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -57,7 +56,13 @@ public class TemplateMailerPortlet extends MVCPortlet {
 		IndexSearcher searcher = searchEngine.getIndexSearcher();
 		Hits hits = null;
 		try {
-			hits = searcher.search(searchContext,getSearchQuery());
+			PortletPreferences preferences = renderRequest.getPreferences();
+			Long folderid = null;
+			if (Validator.isNotNull(preferences))
+			{
+				folderid = GetterUtil.getLong(preferences.getValue("folderid","0"));
+			}
+			hits = searcher.search(searchContext,getSearchQuery(folderid));
 		} catch (SearchException e) {
 			e.printStackTrace();
 		}
@@ -68,12 +73,11 @@ public class TemplateMailerPortlet extends MVCPortlet {
 		super.render(renderRequest, renderResponse);
 	}
 
-	private Query getSearchQuery() {
+	private Query getSearchQuery(long folderid) {
 		BooleanQuery searchQuery = new BooleanQueryImpl();
 		searchQuery.addRequiredTerm(Field.ENTRY_CLASS_NAME, JournalArticle.class.getName());
 		searchQuery.addRequiredTerm("head", Boolean.TRUE);
-		//TODO configurable folderId
-		searchQuery.addRequiredTerm(Field.FOLDER_ID, 39455);
+		searchQuery.addRequiredTerm(Field.FOLDER_ID, folderid);
 
 		return searchQuery;
 	}
