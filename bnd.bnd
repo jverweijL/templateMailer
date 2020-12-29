@@ -1,0 +1,4 @@
+Bundle-Name: templateMailer
+Bundle-SymbolicName: templatemailer
+Bundle-Version: 1.0.0
+Export-Package: templatemailer.constants
