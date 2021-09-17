@@ -9,9 +9,13 @@ Built with [Liferay Workspace](https://help.liferay.com/hc/en-us/articles/360029
 
 *Include an image or gif that represents your project*
 
+- choose a template
 ![choose a template](1.template.png)  
+- fill out the form
 ![fill out the form](2.form.png)  
+- validate the preview and send
 ![validate the preview](3.preview.png)  
+- create your own templates
 ![create your own templates](4.structure.png)  
 
 https://youtu.be/wXgP2IBkyWY
