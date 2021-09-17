@@ -52,6 +52,14 @@ public class TemplateMailerPortlet extends MVCPortlet {
 				themeDisplay.getUser().getUserId());
 		searchContext.setStart(-1);
 		searchContext.setEnd(-1);
+		searchContext.setSorts(
+				SortFactoryUtil.create(
+						Field.TITLE,
+						Sort.STRING_TYPE, true),
+				SortFactoryUtil.create(
+						Field.CREATE_DATE,
+						Sort.LONG_TYPE, true));
+
 		SearchEngine searchEngine = SearchEngineHelperUtil.getSearchEngine(SearchEngineHelperUtil.getDefaultSearchEngineId());
 		IndexSearcher searcher = searchEngine.getIndexSearcher();
 		Hits hits = null;

@@ -39,14 +39,16 @@ public class PreviewMVCRenderCommand implements MVCRenderCommand {
             JournalArticle article = _JournalArticleLocalService.getLatestArticle(classPK);
             Fields fields = _journalConverter.getDDMFields(article.getDDMStructure(), article.getContent());
             String body = (String) fields.get("Body").getValue();
+            String subject = (String) fields.get("Subject").getValue();
 
             Set<String> params = renderRequest.getRenderParameters().getNames();
             for (String param:params) {
                 body = body.replaceAll("\\$\\{" + param + "\\}", renderRequest.getRenderParameters().getValue(param));
+                subject = subject.replaceAll("\\$\\{" + param + "\\}", renderRequest.getRenderParameters().getValue(param));
             }
 
             renderRequest.setAttribute("to",renderRequest.getRenderParameters().getValue("to"));
-            renderRequest.setAttribute("subject",(String) fields.get("Subject").getValue());
+            renderRequest.setAttribute("subject",subject);
             renderRequest.setAttribute("body",body);
 
         } catch (PortalException e) {
