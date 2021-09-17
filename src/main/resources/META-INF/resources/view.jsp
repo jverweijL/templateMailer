@@ -10,7 +10,7 @@
 	<liferay-ui:search-container-results results="<%= (List<AssetEntry>) request.getAttribute("assetentries") %>" />
 	<liferay-ui:search-container-row modelVar="article" className="com.liferay.asset.kernel.model.AssetEntry">
 		<liferay-ui:search-container-column-text name="Template" value="<%= HtmlUtil.escape(article.getTitleCurrentValue()) %>"/>
-		<liferay-ui:search-container-column-text>
+		<liferay-ui:search-container-column-text align="right">
 			<aui:button cssClass="group-selector-button" value="choose" onclick="submitForm(${article.getClassPK()})" />
 		</liferay-ui:search-container-column-text>
 	</liferay-ui:search-container-row>

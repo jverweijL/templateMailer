@@ -2,6 +2,7 @@ dependencies {
 	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.3.5-ga6"
 	compileOnly group: "com.sun.mail", name: "javax.mail", version: "1.6.2"
 	cssBuilder group: "com.liferay", name: "com.liferay.css.builder", version: "3.0.2"
+
 }
 
 task('docker.deploy', type: Copy) {
